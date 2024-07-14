@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-zzo6nwq(oq9(9*k_g*ql4_#%&ujgag&!xzlq-ah%q62u%_9-0k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'yourdomain.com']
 
 
 # Application definition
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'teacher',
     "class",
     "course",
+    'rest_framework'
+
 ]
 
 MIDDLEWARE = [
@@ -78,9 +80,13 @@ WSGI_APPLICATION = 'school.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+   "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "mydatabase",
+        "USER": "myuser",
+        "PASSWORD": "mypassword",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
