@@ -10,6 +10,7 @@ from classroom.models import Class
 from .serializers import ClassroomSerializer
 from .serializers import ClassperiodSerializer
 from classperiod.models import ClassPeriod
+from rest_framework import status
 
 
 class StudentListView(APIView):
@@ -17,25 +18,116 @@ class StudentListView(APIView):
         students = Student.objects.all()
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
+    def post(self,request):
+        serializer = StudentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+class StudentDetailView(APIView):
+    def get(self,request,id):
+        student = Student.objects.get(id = id)
+        serializer = StudentSerializer(student)
+        return Response(serializer.data)
+    def put(self,request,id):
+        student = Student.objects.get(id = id)
+        serializer = StudentSerializer(student,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    def delete(self,request,id):
+        student = Student.objects.get(id = id)
+        student.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
 class TeacherListView(APIView):
     def get(self, request):
         teacher = Teacher.objects.all()
         serializer = TeacherSerializer(teacher, many= True)
         return Response(serializer.data)
+    def post(self,request):
+        serializer = TeacherSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+class TeacherDetailView(APIView):
+    def get(self,request,id):
+        teacher = Teacher.objects.get(id = id)
+        serializer = TeacherSerializer(teacher)
+        return Response(serializer.data)
+    def put(self,request,id):
+        teacher = Teacher.objects.get(id = id)
+        serializer = Teacher(teacher,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    def delete(self,request,id):
+        teacher = Teacher.objects.get(id = id)
+        teacher.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)       
 
 class CourseListView(APIView):
     def get(self, request):
         course = Course.objects.all()
         serializer = CourseSerializer(course , many= True)
         return Response(serializer.data)
+    def post(self,request):
+        serializer = CourseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+class CourseDetailView(APIView):
+    def get(self,request,id):
+        student = Course.objects.get(id = id)
+        serializer = CourseSerializer(student)
+        return Response(serializer.data)
+    def put(self,request,id):
+        student = Course.objects.get(id = id)
+        serializer = CourseSerializer(student,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    def delete(self,request,id):
+        course = Course.objects.get(id = id)
+        course.delete()
+        return Response(status=status.HTTP_202_ACCEPTED)
     
 class ClassroomListView(APIView):
     def get(self, request):
         classroom = Class.objects.all()
         serializer = ClassroomSerializer(classroom, many= True)
         return Response(serializer.data)
+    def post(self,request):
+        serializer = ClassroomSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class ClassperiodListView(APIView):
     def get(self,request):
         classperiod = ClassPeriod.objects.all()
         serializer = ClassperiodSerializer(classperiod,many = True)
         return Response(serializer.data)
+    def post(self,request):
+        serializer = ClassperiodSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+    
