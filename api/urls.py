@@ -21,6 +21,8 @@ urlpatterns = [
     path('classperiod/<int:id>/', ClassperiodDetailView.as_view(), name='classperiod_detail_view'),
     path('classroom/<int:id>/', ClassroomDetailView.as_view(), name='classroom_detail_view'),
 
+
+
     
     
 ]

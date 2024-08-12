@@ -1,0 +1,7 @@
+from django.contrib import admin
+
+# Register your models here.
+# from .models import ClassPeriod
+# admin.site.register(ClassPeriod)
+from .models import ClassPeriodd
+admin.site.register(ClassPeriodd)

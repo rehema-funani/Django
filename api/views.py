@@ -16,6 +16,13 @@ from rest_framework import status
 class StudentListView(APIView):
     def get(self, request):
         students = Student.objects.all()
+        first_name = request.query_params.get("first_name")
+        country = request.query_params.get("country")
+        if first_name:
+            students = students.filter(first_name = first_name)
+        if country:
+            students = students.filter(country = country)
+
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
     def post(self,request):
@@ -25,8 +32,27 @@ class StudentListView(APIView):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
         
 class StudentDetailView(APIView):
+    def enroll_student(self,student,course_id):
+        course= Course.objects.get(id = course_id)
+        student.courses.add(course)
+
+    def post(self, request, id):
+        student = Student.objects.get(id=id)
+        action = request.data.get("action")
+    
+        if action :"enroll"
+        course_id = request.data.get("course")
+        self.enroll_student(student, course_id)
+        
+        return Response(status=status.HTTP_202_ACCEPTED)
+
     def get(self,request,id):
         student = Student.objects.get(id = id)
         serializer = StudentSerializer(student)
@@ -57,6 +83,20 @@ class TeacherListView(APIView):
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 class TeacherDetailView(APIView):
+    def assign_class(self,teacher,class_id):
+        classroom= Class.objects.get(id = class_id)
+        teacher.classes.add(classroom)
+
+    def post(self, request, id):
+        teacher = Teacher.objects.get(id=id)
+        action = request.data.get("action")
+    
+        if action :"assign"
+        class_id = request.data.get("classroom")
+        self.assign_class(teacher, class_id)
+        
+        return Response(status=status.HTTP_202_ACCEPTED)
+    
     def get(self,request,id):
         teacher = Teacher.objects.get(id = id)
         serializer = TeacherSerializer(teacher)
@@ -119,6 +159,21 @@ class ClassroomListView(APIView):
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 class ClassroomDetailView(APIView):
+    def add_student(self,classroom,student_id):
+        student= Student.objects.get(id = student_id)
+        student.add_student.add(student)
+
+    def post(self, request, id):
+        classroom = Class.objects.get(id=id)
+        action = request.data.get("action")
+    
+        if action :"add"
+        student_id = request.data.get("student")
+        self.add_student(classroom, student_id)
+        
+        return Response(status=status.HTTP_202_ACCEPTED)
+
+    
     def get(self,request,id):
         classroom = Class.objects.get(id = id)
         serializer = ClassroomSerializer(classroom)

@@ -1,4 +1,5 @@
 from django.db import models
+from classroom.models import Class
 
 # Create your models here.
 
@@ -13,6 +14,7 @@ class Teacher(models.Model):
      nationality = models.CharField(max_length = 15)
      gender = models.CharField(max_length = 13)
      course = models.CharField(max_length = 10)
+     classes = models.ManyToManyField(Class)
 
 
 
