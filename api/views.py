@@ -11,19 +11,24 @@ from .serializers import ClassroomSerializer
 from .serializers import ClassperiodSerializer
 from classperiod.models import ClassPeriod
 from rest_framework import status
+from .serializers import MinimalStudentSerializer
+from .serializers import MinimalCourseSerializer
+from .serializers import MinimalTeacherSerializer
+from .serializers import MinimalClassPeriodSerializer
+from .serializers import MinimalClassroomSerializer
 
 
 class StudentListView(APIView):
     def get(self, request):
         students = Student.objects.all()
-        first_name = request.query_params.get("first_name")
-        country = request.query_params.get("country")
-        if first_name:
-            students = students.filter(first_name = first_name)
-        if country:
-            students = students.filter(country = country)
+        # first_name = request.query_params.get("first_name")
+        # country = request.query_params.get("country")
+        # if first_name:
+        #     students = students.filter(first_name = first_name)
+        # if country:
+        #     students = students.filter(country = country)
 
-        serializer = StudentSerializer(students, many=True)
+        serializer = MinimalStudentSerializer(students, many=True)
         return Response(serializer.data)
     def post(self,request):
         serializer = StudentSerializer(data=request.data)
@@ -32,6 +37,7 @@ class StudentListView(APIView):
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
@@ -72,7 +78,7 @@ class StudentDetailView(APIView):
 class TeacherListView(APIView):
     def get(self, request):
         teacher = Teacher.objects.all()
-        serializer = TeacherSerializer(teacher, many= True)
+        serializer = MinimalTeacherSerializer(teacher, many= True)
         return Response(serializer.data)
     def post(self,request):
         serializer = TeacherSerializer(data=request.data)
@@ -118,7 +124,9 @@ class TeacherDetailView(APIView):
 class CourseListView(APIView):
     def get(self, request):
         course = Course.objects.all()
-        serializer = CourseSerializer(course , many= True)
+
+       
+        serializer = MinimalCourseSerializer(course , many= True)
         return Response(serializer.data)
     def post(self,request):
         serializer = CourseSerializer(data=request.data)
@@ -149,7 +157,7 @@ class CourseDetailView(APIView):
 class ClassroomListView(APIView):
     def get(self, request):
         classroom = Class.objects.all()
-        serializer = ClassroomSerializer(classroom, many= True)
+        serializer = MinimalClassroomSerializer(classroom, many= True)
         return Response(serializer.data)
     def post(self,request):
         serializer = ClassroomSerializer(data=request.data)
@@ -194,7 +202,7 @@ class ClassroomDetailView(APIView):
 class ClassperiodListView(APIView):
     def get(self,request):
         classperiod = ClassPeriod.objects.all()
-        serializer = ClassperiodSerializer(classperiod,many = True)
+        serializer = MinimalClassPeriodSerializer(classperiod,many = True)
         return Response(serializer.data)
     def post(self,request):
         serializer = ClassperiodSerializer(data=request.data)
