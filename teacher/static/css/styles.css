@@ -1,0 +1,73 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+form{
+    margin-left: -300px;
+}
+
+.register-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h3 {
+    color: rgb(76, 163, 76); 
+    text-align: center;
+    margin-top: -640px;
+}
+
+.register p {
+    margin-bottom: 15px;
+}
+
+.register input[type="text"],
+.register input[type="email"],
+.register input[type="date"],
+.register select {
+    width: 160%;
+    height: 900%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.register select {
+    height: 100px;
+}
+
+.btn.save {
+    background-color: rgb(69, 146, 69); 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160%;
+    font-size: 16px;
+}
+
+.btn.save:hover {
+    background-color: #ff1493; 
+}
+
+
+
+
+
+
+
+
+
+
+
